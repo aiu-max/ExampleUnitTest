@@ -34,10 +34,12 @@ public class Enemy {
      * @return boolean
      */
     public boolean isDead() {
+
         return dead;
     }
 
     public String getName(){
+
         return name;
     }
 
@@ -47,17 +49,25 @@ public class Enemy {
      * @param hero 攻撃対象
      */
     public void attack(Hero hero){
-        int damage = (int)(Math.random() * attack);
-        System.out.printf("%sの攻撃！%sに%dのダメージを与えた！！\n", name, hero.getName(), damage);
-        hero.wounded(damage);
+        if(!isDead()) {
+            int damage = (int) (Math.random() * attack);
+            System.out.printf("%sの攻撃！%sに%dのダメージを与えた！！\n", name, hero.getName(), damage);
+            hero.wounded(damage);
+        }
+        else {
+            int damage = 0;
+            hero.wounded(damage);
+        }
+
     }
+
 
     /**
      * 自身へ攻撃されたときのダメージ処理をするメソッド。
      * 指定されたダメージを hitPoint から引き、死亡判定を行う。
      * @param damage 受けたダメージ
      */
-    public void wounded(int damage){
+    public void wounded(int damage) {
         hitPoint -= damage;
         if( hitPoint < 0 ) {
             dead = true;
